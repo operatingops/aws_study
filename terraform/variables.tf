@@ -1,8 +1,8 @@
-variable "aws_region" {
-  description = "AWS region."
-}
+variable "aws_region" {}
 
 variable "enabled" {
   default     = true
-  description = "Turns EC2 instances on and off."
+  description = "Turns EC2 instances and the NAT on and off."
 }
+
+variable "key_name" {}

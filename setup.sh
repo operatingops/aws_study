@@ -1,9 +1,16 @@
 #!/bin/bash
 
 profile=$1
+key_name=$2
 
 if [[ $profile == '' ]]; then
-  profile='default'
+  echo "You must supply both an AWS CLI profile name and an SSH key name."
+  return 1
+fi
+
+if [[ $key_name == '' ]]; then
+  echo "You must supply both an AWS CLI profile name and an SSH key name."
+  return 1
 fi
 
 current_relative_path="$(dirname $BASH_SOURCE)"
@@ -21,6 +28,7 @@ fi
 
 # Set terraform variables.
 export TF_VAR_aws_region=$region
+export TF_VAR_key_name=$key_name
 
 terraform_bucket="${account_id}-${region}-aws-study-terraform"
 
