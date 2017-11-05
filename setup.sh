@@ -29,11 +29,10 @@ fi
 # Set terraform variables.
 export TF_VAR_aws_region=$region
 export TF_VAR_key_name=$key_name
+export TF_VAR_state_bucket="${account_id}-${region}-aws-study-terraform"
 
-terraform_bucket="${account_id}-${region}-aws-study-terraform"
-
-if [ $(aws s3 ls s3://${terraform_bucket}/ &> /dev/null; echo $?) -eq 255 ]; then
-  aws --region $region s3 mb s3://${terraform_bucket}
+if [ $(aws s3 ls s3://${TF_VAR_state_bucket}/ &> /dev/null; echo $?) -eq 255 ]; then
+  aws --region $TF_VAR_aws_region s3 mb s3://${TF_VAR_state_bucket}
   exit_code=$?
   if [ $exit_code -ne 0 ]; then
     return $exit_code
@@ -42,6 +41,6 @@ fi
 
 cat << EOF > ${current_relative_path}/terraform/.backend_config
 # This file is dynamically created by the setup script in the project root. Don't edit it manually.
-bucket = "${terraform_bucket}"
-region = "${region}"
+bucket = "${TF_VAR_state_bucket}"
+region = "${TF_VAR_aws_region}"
 EOF

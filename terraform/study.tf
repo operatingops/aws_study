@@ -8,7 +8,7 @@ data "terraform_remote_state" "study" {
   backend = "s3"
 
   config {
-    bucket = "${data.aws_caller_identity.current.account_id}-${var.aws_region}-terraform"
+    bucket = "${var.state_bucket}"
     key    = "study"
     region = "${var.aws_region}"
   }

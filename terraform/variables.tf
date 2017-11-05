@@ -6,3 +6,4 @@ variable "enabled" {
 }
 
 variable "key_name" {}
+variable "state_bucket" {}
