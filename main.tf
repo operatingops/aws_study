@@ -1,14 +1,10 @@
-data "aws_ami" "ami" {
+data "aws_ami" "amazon-linux-2" {
   most_recent = true
-
-  filter {
-    name   = "owner-alias"
-    values = ["amazon"]
-  }
+  owners = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["amzn-ami-hvm*"]
+    values = ["amzn2-ami-hvm*-x86_64-gp2"]
   }
 }
 
@@ -154,7 +150,7 @@ resource "aws_security_group" "bastion" {
 
 resource "aws_instance" "bastion" {
   count                       = "${var.enabled ? 1 : 0}"
-  ami                         = "${data.aws_ami.ami.image_id}"
+  ami                         = "${data.aws_ami.amazon-linux-2.image_id}"
   associate_public_ip_address = true
   instance_type               = "t2.micro"
   key_name                    = "${var.key_name}"
@@ -217,7 +213,7 @@ resource "aws_security_group" "testa" {
 
 resource "aws_instance" "testa" {
   count                  = "${var.enabled ? 1 : 0}"
-  ami                    = "${data.aws_ami.ami.image_id}"
+  ami                    = "${data.aws_ami.amazon-linux-2.image_id}"
   instance_type          = "t2.micro"
   key_name               = "${var.key_name}"
   subnet_id              = "${module.vpc.private_subnets[0]}"
@@ -279,7 +275,7 @@ resource "aws_security_group" "testb" {
 
 resource "aws_instance" "testb" {
   count                  = "${var.enabled ? 1 : 0}"
-  ami                    = "${data.aws_ami.ami.image_id}"
+  ami                    = "${data.aws_ami.amazon-linux-2.image_id}"
   instance_type          = "t2.micro"
   key_name               = "${var.key_name}"
   subnet_id              = "${module.vpc.private_subnets[1]}"
