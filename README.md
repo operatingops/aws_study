@@ -1,6 +1,10 @@
 # About
 
-A terraform module that deploys a nothing-out-of-box VPC for learning AWS networking (hands-on). The VPC and its resources only implement what's needed to make SSH work and to allow you to install system packages for testing. This way you can more easily see what rules/routes/etc. are really needed for traffic flows (because everything is disabled or blocked until you specifically enable it). This is primarily designed for you to run tests between the two private subnets.
+A terraform module that deploys a nothing-out-of-box VPC. The VPC and its resources only implement what's needed to make SSH work and to allow you to install system packages.
+
+This is primarily a demonstration where you can more easily see what rules/routes/etc. are really needed for traffic flows (because everything is disabled or blocked until you specifically enable it). It's not designed to be run directly in production.
+
+This is primarily designed for you to run tests between the two private subnets.
 
 ![Network Diagram](diagram.png)
 
@@ -9,15 +13,15 @@ A terraform module that deploys a nothing-out-of-box VPC for learning AWS networ
 For example:
 
 ```
-module "study" {
-  source = "git::https://github.com/operatingops/aws_study.git?ref=master"
+module "minimal_vpc" {
+  source = "git::https://github.com/operatingops/minimal_vpc.git?ref=master"
 
   aws_region = "us-west-2"
   enabled    = true
   key_name   = "adam"
 
   # terraform-null-label inputs
-  namespace = "study"
+  namespace = "minimalvpc"
   stage     = "dev-1"
 }
 ```
