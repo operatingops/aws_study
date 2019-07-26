@@ -44,16 +44,8 @@ module "vpc" {
 # assign new ones so you can test rules applied to individual subnets.
 resource "aws_network_acl" "private_subnet_acl" {
   # Fails with length() because these are computed values.
-  count  = "2"
-  vpc_id = module.vpc.vpc_id
-  # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-  # force an interpolation expression to be interpreted as a list by wrapping it
-  # in an extra set of list brackets. That form was supported for compatibilty in
-  # v0.11, but is no longer supported in Terraform v0.12.
-  #
-  # If the expression in the following list itself returns a list, remove the
-  # brackets to avoid interpretation as a list of lists. If the expression
-  # returns a single list item then leave it as-is and remove this TODO comment.
+  count      = "2"
+  vpc_id     = module.vpc.vpc_id
   subnet_ids = [element(module.vpc.private_subnets, count.index)]
   tags       = module.vpc_label.tags
 
