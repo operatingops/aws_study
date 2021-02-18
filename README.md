@@ -6,7 +6,7 @@ This is primarily a demonstration where you can more easily see what rules/route
 
 This is primarily designed for you to run tests between the two private subnets.
 
-Need help with this? I'm also [available to consult][consult].
+Need help with this? We're [available to consult][consult].
 
 ![Network Diagram](diagram.png)
 
@@ -36,4 +36,4 @@ To de-provision the EC2 instances and NAT Gateways, without deleting any of the 
 
 This uses cloudposse's [terraform-null-label](https://github.com/cloudposse/terraform-null-label/tree/0.5.3) to generate resource names and tags, and it accepts the same variables.
 
-[consult]: https://operatingops.org/hire-adam/
+[consult]: https://operatingops.com/hire
